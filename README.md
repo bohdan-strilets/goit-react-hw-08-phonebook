@@ -1,21 +1,23 @@
-# React project template
+# Phone book
 
-Этот проект был создан при помощи
-[Create React App](https://github.com/facebook/create-react-app). Для знакомства
-и настройки дополнительных возможностей
-[обратись к документации](https://facebook.github.io/create-react-app/docs/getting-started).
+Refactor the Phonebook application code to add a control state using the library
+[Redux Toolkit](https://redux-toolkit.js.org/).
 
-## Подготовка нового проекта
+Let the Redux state look like this.
 
-1. Убедись что на компьютере установлена LTS-версия Node.js.
-   [Скачай и установи](https://nodejs.org/en/) её если необходимо.
-2. Склонируй этот репозиторий.
-3. Измени имя папки с `react-homework-template` на имя своего проекта.
-4. Создай новый пустой репозиторий на GitHub.
-5. Открой проект в VSCode, запусти терминал и свяжи проект с GitHub-репозиторием
-   [по инструкции](https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories#changing-a-remote-repositorys-url).
-6. Установи базовые зависимости проекта командой `npm install`.
-7. Запусти режим разработки, выполнив команду `npm start`.
-8. Перейди в браузере по адресу [http://localhost:3000](http://localhost:3000).
-   Эта страница будет автоматически перезагружаться после сохранения изменений в
-   файлах проекта.
+```bash
+{
+  contacts: {
+    items: [],
+    filter: ''
+  }
+}
+```
+
+- Create a vault with `configureStore()`
+- Create actions to save and delete a contact, as well as update the filter. use
+  the function `createAction()`.
+- Create contact and filter reducers. use the function `createReducer()` or
+  `createSlice()`.
+- Bind React Components to Redux Logic with Library Hooks
+  [react-redux](https://react-redux.js.org/).
