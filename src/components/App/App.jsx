@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
+import { useState } from 'react';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
+import { useSelector, useDispatch } from 'react-redux';
+import contactsActions from 'redux/contacts-actions';
 import ContactForm from 'components/ContactForm';
 import ContactList from 'components/ContactList';
 import Filter from 'components/Filter';
@@ -17,42 +18,30 @@ import {
 } from './App.styled';
 
 function App() {
-  const [contacts, setContacts] = useState([]);
-  const [filter, setFilter] = useState('');
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
+  const contacts = useSelector(state => state.contacts.items);
+  const filter = useSelector(state => state.contacts.filter);
 
-    parsedContacts ? setContacts(parsedContacts) : setContacts([]);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  const dispatch = useDispatch();
 
   const addContact = ({ name, number }) => {
-    const newContact = { id: nanoid(), name, number };
-
     contacts.some(contact => contact.name === name)
       ? Report.warning(
           `${name}`,
           'This user is already in the contact list.',
           'OK',
         )
-      : setContacts(prevContacts => [newContact, ...prevContacts]);
+      : dispatch(contactsActions.addContact(name, number));
 
     toggleModal();
   };
 
-  const deleteContact = contactId => {
-    setContacts(prevContacts =>
-      prevContacts.filter(contact => contact.id !== contactId),
-    );
-  };
+  const deleteContact = contactId =>
+    dispatch(contactsActions.deleteContact(contactId));
 
-  const changeFilter = e => setFilter(e.currentTarget.value);
+  const changeFilter = e =>
+    dispatch(contactsActions.changeFilter(e.currentTarget.value));
 
   const filtredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
