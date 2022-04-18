@@ -2,7 +2,13 @@ import { useState } from 'react';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { useSelector, useDispatch } from 'react-redux';
-import contactsActions from 'redux/contacts-actions';
+import {
+  addContact,
+  deleteContact,
+  changeFilter,
+  getContacts,
+  getFilter,
+} from 'redux/contacts-slice';
 import ContactForm from 'components/ContactForm';
 import ContactList from 'components/ContactList';
 import Filter from 'components/Filter';
@@ -16,32 +22,33 @@ import {
   Button,
   ButtonText,
 } from './App.styled';
+import { nanoid } from 'nanoid';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
 
-  const contacts = useSelector(state => state.contacts.items);
-  const filter = useSelector(state => state.contacts.filter);
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
 
   const dispatch = useDispatch();
 
-  const addContact = ({ name, number }) => {
+  const addNewContact = ({ name, number }) => {
+    const newElement = { id: nanoid(), name, number };
+
     contacts.some(contact => contact.name === name)
       ? Report.warning(
           `${name}`,
           'This user is already in the contact list.',
           'OK',
         )
-      : dispatch(contactsActions.addContact(name, number));
+      : dispatch(addContact(newElement));
 
     toggleModal();
   };
 
-  const deleteContact = contactId =>
-    dispatch(contactsActions.deleteContact(contactId));
+  const deleteSelectedContact = contactId => dispatch(deleteContact(contactId));
 
-  const changeFilter = e =>
-    dispatch(contactsActions.changeFilter(e.currentTarget.value));
+  const changeFieldFilter = e => dispatch(changeFilter(e.currentTarget.value));
 
   const filtredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
@@ -65,15 +72,15 @@ function App() {
       </Button>
       {showModal && (
         <Modal onClose={toggleModal} title="Add contact">
-          <ContactForm onSubmit={addContact} />
+          <ContactForm onSubmit={addNewContact} />
         </Modal>
       )}
       <Subtitle>Contacts</Subtitle>
-      <Filter filter={filter} changeFilter={changeFilter} />
+      <Filter filter={filter} changeFilter={changeFieldFilter} />
       {contacts.length > 0 ? (
         <ContactList
           contacts={filtredContacts()}
-          onDeleteContact={deleteContact}
+          onDeleteContact={deleteSelectedContact}
         />
       ) : (
         <Message text="Contact list is empty." />
