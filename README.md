@@ -1,23 +1,15 @@
 # Phone book
 
-Refactor the Phonebook application code to add a control state using the library
-[Redux Toolkit](https://redux-toolkit.js.org/).
+Refactor the Phone Book application code. Delete the code responsible for
+storing and reading contacts from local storage and add work with backend to
+store contacts.
 
-Let the Redux state look like this.
+Create a development backend with a UI service [mockapi.io](https://mockapi.io).
 
-```bash
-{
-  contacts: {
-    items: [],
-    filter: ''
-  }
-}
-```
+Create a `contacts` resource to get the `/contacts` endpoint. Use resource
+constructor and describe the contact object as in the illustration.
 
-- Create a vault with `configureStore()`
-- Create actions to save and delete a contact, as well as update the filter. use
-  the function `createAction()`.
-- Create contact and filter reducers. use the function `createReducer()` or
-  `createSlice()`.
-- Bind React Components to Redux Logic with Library Hooks
-  [react-redux](https://react-redux.js.org/).
+use the function
+[createAsyncThunk](https://redux-toolkit.js.org/api/createAsyncThunk) or
+[RTK Query](https://redux-toolkit.js.org/rtk-query/overview) for interaction
+with backend and asynchronous requests.
