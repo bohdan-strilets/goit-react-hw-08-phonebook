@@ -15,7 +15,7 @@ export const Text = styled.p`
 `;
 
 export const Input = styled.input`
-  width: 70%;
+  width: 95%;
   height: 40px;
   padding: 0 10px 0 10px;
 

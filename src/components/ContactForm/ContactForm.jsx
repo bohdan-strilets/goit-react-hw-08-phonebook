@@ -1,70 +1,99 @@
-import { useState } from 'react';
-import { Label, Title, Input, Button } from './ContactForm.styled';
-import { Report } from 'notiflix/build/notiflix-report-aio';
-import { nanoid } from 'nanoid';
-import { useSelector, useDispatch } from 'react-redux';
-import { addContact, getContacts } from 'redux/contacts-slice';
+import { Label, Title, StyledField, Button } from './ContactForm.styled';
+import { useCreateContactMutation } from 'redux/contact-api';
+import { Formik, Form, ErrorMessage } from 'formik';
+import * as yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 
-function ContactForm({ onClose }) {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+function ContactForm() {
+  const navigate = useNavigate();
 
-  const onChangeName = e => setName(e.currentTarget.value);
-  const onChangeNunber = e => setNumber(e.currentTarget.value);
+  const [createContact] = useCreateContactMutation();
 
-  const contacts = useSelector(getContacts);
-  const dispatch = useDispatch();
+  const onSubmitForm = ({ name, phone, email, city, company }) => {
+    // contacts.some(contact => contact.name === name)
+    //   ? Report.warning(
+    //       `${name}`,
+    //       'This user is already in the contact list.',
+    //       'OK',
+    //     )
+    //   : createContact(newElement);
 
-  const onSubmitForm = e => {
-    e.preventDefault();
-
-    const newElement = { id: nanoid(), name, number };
-
-    contacts.some(contact => contact.name === name)
-      ? Report.warning(
-          `${name}`,
-          'This user is already in the contact list.',
-          'OK',
-        )
-      : dispatch(addContact(newElement));
-
-    reset();
-    onClose();
+    createContact({ name, phone, email, city, company });
+    navigate('/');
   };
 
-  const reset = () => {
-    setName('');
-    setNumber('');
-  };
+  const contactSchema = yup.object({
+    name: yup.string().required().min(3).max(30),
+    phone: yup.number().required(),
+    email: yup.string().email(),
+    city: yup.string().min(3).max(30),
+    company: yup.string().min(3).max(50),
+  });
 
   return (
-    <form onSubmit={onSubmitForm}>
-      <Label>
-        <Title>Name</Title>
-        <Input
-          onChange={onChangeName}
-          type="text"
-          name="name"
-          value={name}
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-        />
-      </Label>
-      <Label>
-        <Title>Number</Title>
-        <Input
-          onChange={onChangeNunber}
-          type="tel"
-          name="number"
-          value={number}
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
-      </Label>
-      <Button type="submit">Add contact</Button>
-    </form>
+    <Formik
+      initialValues={{ name: '', phone: '', email: '', city: '', company: '' }}
+      onSubmit={onSubmitForm}
+      validationSchema={contactSchema}
+    >
+      {({ values, handleChange, handleSubmit, isSubmitting }) => (
+        <Form onSubmit={handleSubmit}>
+          <Label>
+            <Title>Name</Title>
+            <StyledField
+              type="text"
+              name="name"
+              onChange={handleChange}
+              value={values.name}
+            />
+            <ErrorMessage name="name" component="div" />
+          </Label>
+          <Label>
+            <Title>Phone</Title>
+            <StyledField
+              type="tel"
+              name="phone"
+              onChange={handleChange}
+              value={values.phone}
+            />
+            <ErrorMessage name="phone" component="div" />
+          </Label>
+          <Label>
+            <Title>Email</Title>
+            <StyledField
+              type="email"
+              name="email"
+              onChange={handleChange}
+              value={values.email}
+            />
+            <ErrorMessage name="email" component="div" />
+          </Label>
+          <Label>
+            <Title>City</Title>
+            <StyledField
+              type="text"
+              name="city"
+              onChange={handleChange}
+              value={values.city}
+            />
+            <ErrorMessage name="city" component="div" />
+          </Label>
+          <Label>
+            <Title>Company</Title>
+            <StyledField
+              type="text"
+              name="company"
+              onChange={handleChange}
+              value={values.company}
+            />
+            <ErrorMessage name="company" component="div" />
+          </Label>
+          <Button type="submit" disabled={isSubmitting}>
+            Add contact
+          </Button>
+        </Form>
+      )}
+    </Formik>
   );
 }
 

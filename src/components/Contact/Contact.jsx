@@ -1,30 +1,82 @@
 import PropTypes from 'prop-types';
-import { FaTrash, FaUserAlt } from 'react-icons/fa';
-import { Wrapper, Icon, Number, Button } from './Contact.styled';
+import { FaTrash, FaUserEdit } from 'react-icons/fa';
+import {
+  Wrapper,
+  StyledLink,
+  ImageWrapper,
+  Photo,
+  PersonalData,
+  Name,
+  Number,
+  Label,
+  Email,
+  LocalData,
+  City,
+  Company,
+  ButtonWrapper,
+  Button,
+} from './Contact.styled';
 
-function Contact({ name, number, onDeleteContact }) {
+function Contact({
+  id,
+  name,
+  phone,
+  email,
+  city,
+  company,
+  photo,
+  onDeleteContact,
+  deleting,
+}) {
   return (
-    <>
-      <Wrapper>
-        <Icon>
-          <FaUserAlt />
-        </Icon>
-        <p>{name}</p>
-      </Wrapper>
-      <Wrapper>
-        <Number>{number}</Number>
+    <Wrapper>
+      <StyledLink to={`/contacts/${id}`}>
+        <ImageWrapper>
+          <Photo src={photo} alt={name} />
+        </ImageWrapper>
+        <PersonalData>
+          <Name>{name}</Name>
+          <Number>
+            <Label>Phone: </Label>
+            {phone}
+          </Number>
+          <Email>
+            <Label>Email: </Label>
+            {email}
+          </Email>
+        </PersonalData>
+        <LocalData>
+          <City>
+            <Label>City: </Label>
+            {city}
+          </City>
+          <Company>
+            <Label>Company: </Label>
+            {company}
+          </Company>
+        </LocalData>
+      </StyledLink>
+      <ButtonWrapper>
         <Button type="button" onClick={onDeleteContact}>
-          <FaTrash />
+          {deleting ? '...' : <FaTrash />}
         </Button>
-      </Wrapper>
-    </>
+        <Button type="button">
+          <FaUserEdit />
+        </Button>
+      </ButtonWrapper>
+    </Wrapper>
   );
 }
 
 Contact.prototype = {
   name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  city: PropTypes.string,
+  company: PropTypes.string,
+  photo: PropTypes.string,
   onDeleteContact: PropTypes.func.isRequired,
+  deleting: PropTypes.bool.isRequired,
 };
 
 export default Contact;
