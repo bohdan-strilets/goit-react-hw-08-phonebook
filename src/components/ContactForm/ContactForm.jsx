@@ -1,25 +1,32 @@
 import { Label, Title, StyledField, Button } from './ContactForm.styled';
-import { useCreateContactMutation } from 'redux/contact-api';
+import {
+  useCreateContactMutation,
+  useGetContactsQuery,
+} from 'redux/contact-api';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import { Report } from 'notiflix';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 function ContactForm() {
   const navigate = useNavigate();
 
   const [createContact] = useCreateContactMutation();
+  const { data: contacts } = useGetContactsQuery();
 
   const onSubmitForm = ({ name, phone, email, city, company }) => {
-    // contacts.some(contact => contact.name === name)
-    //   ? Report.warning(
-    //       `${name}`,
-    //       'This user is already in the contact list.',
-    //       'OK',
-    //     )
-    //   : createContact(newElement);
+    contacts.some(contact => contact.name === name)
+      ? Report.warning(
+          `${name}`,
+          'This user is already in the contact list.',
+          'OK',
+        )
+      : createContact({ name, phone, email, city, company });
 
-    createContact({ name, phone, email, city, company });
     navigate('/');
+
+    Notify.success(`The ${name} has been added to your contact list.`);
   };
 
   const contactSchema = yup.object({

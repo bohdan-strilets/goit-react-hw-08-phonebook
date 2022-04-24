@@ -16,6 +16,8 @@ import {
   ButtonWrapper,
   Button,
 } from './Contact.styled';
+import { useNavigate } from 'react-router-dom';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 function Contact({
   id,
@@ -28,6 +30,14 @@ function Contact({
   onDeleteContact,
   deleting,
 }) {
+  const navigate = useNavigate();
+  const openEditPage = () => navigate(`/contacts/${id}/edit`);
+
+  const deleteContact = () => {
+    onDeleteContact();
+    Notify.success(`The ${name} has been removed from your contact list.`);
+  };
+
   return (
     <Wrapper>
       <StyledLink to={`/contacts/${id}`}>
@@ -57,10 +67,10 @@ function Contact({
         </LocalData>
       </StyledLink>
       <ButtonWrapper>
-        <Button type="button" onClick={onDeleteContact}>
+        <Button type="button" onClick={deleteContact}>
           {deleting ? '...' : <FaTrash />}
         </Button>
-        <Button type="button">
+        <Button type="button" onClick={openEditPage}>
           <FaUserEdit />
         </Button>
       </ButtonWrapper>

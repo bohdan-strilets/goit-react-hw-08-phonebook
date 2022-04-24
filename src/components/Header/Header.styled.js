@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
-export const Title = styled.h1`
+export const Title = styled(Link)`
+  display: block;
   font-size: 36px;
   text-transform: uppercase;
   font-weight: 900;

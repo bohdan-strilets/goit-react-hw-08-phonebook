@@ -4,7 +4,7 @@ import { BsFillPersonPlusFill } from 'react-icons/bs';
 function Header() {
   return (
     <>
-      <Title>
+      <Title to="/">
         Phone<TitleColor>book</TitleColor>
       </Title>
       <Button to="/contacts/add">

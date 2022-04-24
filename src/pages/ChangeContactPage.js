@@ -1,5 +1,7 @@
+import ChangeContactForm from 'components/ChangeContactForm';
+
 function ChangeContactPage() {
-  return <h1>ChangeContactPage</h1>;
+  return <ChangeContactForm />;
 }
 
 export default ChangeContactPage;

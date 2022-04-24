@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 export const Wrapper = styled.div``;
 
@@ -9,7 +10,6 @@ export const GoBack = styled.button`
 
   width: 100px;
   height: 30px;
-  padding: 10px;
   margin-bottom: 30px;
 
   border: none;
@@ -109,7 +109,27 @@ export const Button = styled.button`
 
   width: 49%;
   height: 30px;
-  padding: 10px;
+
+  border: none;
+  background-color: #2b2b2b;
+  color: var(--second-text-color);
+
+  cursor: pointer;
+  transition: background-color var(--main-hover-animation);
+
+  :hover,
+  :focus {
+    background-color: var(--accent-bg-color);
+  }
+`;
+
+export const EditButton = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 49%;
+  height: 30px;
 
   border: none;
   background-color: #2b2b2b;

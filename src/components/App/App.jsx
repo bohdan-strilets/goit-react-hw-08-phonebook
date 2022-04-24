@@ -4,7 +4,6 @@ import Header from 'components/Header';
 import ContactsPage from 'pages/ContactsPage';
 import AddContactPage from 'pages/AddContactPage';
 import ContactInfoPage from 'pages/ContactInfoPage';
-import ChangeContactPage from 'pages/ChangeContactPage';
 
 function App() {
   return (
@@ -16,11 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<ContactsPage />} />
         <Route path="/contacts/add" element={<AddContactPage />} />
-        <Route path="/contacts/:contactId" element={<ContactInfoPage />} />
-        <Route
-          path="/contacts/:contactId/edit"
-          element={<ChangeContactPage />}
-        />
+        <Route path="/contacts/:contactId/*" element={<ContactInfoPage />} />
+        <Route path="*" element={<ContactsPage />} />
       </Routes>
     </>
   );

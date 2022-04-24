@@ -6,12 +6,11 @@ import {
   useGetContactsQuery,
   useDeleteContactMutation,
 } from 'redux/contact-api';
+import NotFound from 'components/NotFound';
 
 function ContactList() {
-  const { data: contacts, isFetching } = useGetContactsQuery();
-
+  const { data: contacts, isFetching, error } = useGetContactsQuery();
   const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
-
   const { filter } = useSelector(state => state.filter);
 
   const filtredContacts = () => {
@@ -29,6 +28,7 @@ function ContactList() {
   return (
     <List>
       {isFetching && <Loader />}
+      {error && <NotFound data={error.data} status={error.status} />}
       {contacts &&
         filteredContactList.map(
           ({ id, name, phone, email, city, company, photo }) => {
