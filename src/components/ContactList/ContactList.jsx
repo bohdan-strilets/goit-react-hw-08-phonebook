@@ -4,10 +4,11 @@ import { List, Item } from './ContactList.styled';
 import Loader from 'components/Loader';
 import { useGetContactsQuery } from 'redux/contact-api';
 import NotFound from 'components/NotFound';
+import { getFilter } from 'redux/contact-selectors';
 
 function ContactList() {
   const { data: contacts, isFetching, error } = useGetContactsQuery();
-  const { filter } = useSelector(state => state.filter);
+  const { filter } = useSelector(state => getFilter(state));
 
   const filtredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
