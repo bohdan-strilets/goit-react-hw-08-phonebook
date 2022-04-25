@@ -18,10 +18,11 @@ function ChangeContactForm() {
   const navigate = useNavigate();
 
   const [chengeContact, { isLoading: isUpdating }] = useChangeContactMutation();
-  const { data } = useGetContactByidQuery(contactId);
+  const { data: contact } = useGetContactByidQuery(contactId);
 
   const onSubmitForm = values => {
     if (JSON.stringify(values) === JSON.stringify(initialValues)) {
+      Notify.warning('Try to change something first.');
       return;
     }
 
@@ -30,20 +31,23 @@ function ChangeContactForm() {
     Notify.success('The contact has been successfully changed.');
   };
 
-  const initialValues = {
-    name: data.name,
-    phone: data.phone,
-    email: data.email,
-    city: data.city,
-    company: data.company,
-  };
+  let initialValues = null;
+  if (contact) {
+    initialValues = {
+      name: contact.name,
+      phone: contact.phone,
+      email: contact.email,
+      city: contact.city,
+      company: contact.company,
+    };
+  }
 
   return (
-    data && (
+    contact && (
       <Formik initialValues={initialValues} onSubmit={onSubmitForm}>
         {({ values, handleChange, handleSubmit }) => (
           <>
-            <MainTitle>{`Edit Contact ${data.name}`}</MainTitle>
+            <MainTitle>{`Edit Contact ${contact.name}`}</MainTitle>
             <Form onSubmit={handleSubmit}>
               <Label>
                 <Title>Name</Title>

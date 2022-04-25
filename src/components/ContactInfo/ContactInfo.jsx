@@ -18,15 +18,16 @@ import {
 } from './ContactInfo.styled';
 import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import ChangeContactPage from 'pages/ChangeContactPage';
-import {
-  useGetContactByidQuery,
-  useDeleteContactMutation,
-} from 'redux/contact-api';
+import { useGetContactByidQuery } from 'redux/contact-api';
 import Loader from 'components/Loader';
 import NotFound from 'components/NotFound';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import Modal from 'components/Modal';
+import useShowModal from 'hooks/useShowModal';
+import DeletingContact from 'components/DeletingContact';
 
 function ContactInfo() {
+  const { showModal, togleModal } = useShowModal(false);
+
   const navigate = useNavigate();
   const { contactId } = useParams();
 
@@ -35,18 +36,19 @@ function ContactInfo() {
     isFetching,
     error,
   } = useGetContactByidQuery(contactId);
-  const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
-
-  const deleteSelectedContact = () => {
-    deleteContact(contactId);
-    navigate('/');
-    Notify.success(
-      `The ${contact.name} has been removed from your contact list.`,
-    );
-  };
 
   return (
     <>
+      {showModal && (
+        <Modal onClose={togleModal} title={contact.name}>
+          <DeletingContact
+            id={contactId}
+            name={contact.name}
+            togleModal={togleModal}
+          />
+        </Modal>
+      )}
+
       {isFetching && <Loader />}
       {error && <NotFound data={error.data} status={error.status} />}
       {contact && (
@@ -79,8 +81,8 @@ function ContactInfo() {
             </Company>
           </LocalData>
           <ButtonWrapper>
-            <Button type="button" onClick={deleteSelectedContact}>
-              {isDeleting ? '...' : <FaTrash />}
+            <Button type="button" onClick={togleModal}>
+              <FaTrash />
             </Button>
             <EditButton to="edit" type="button">
               <FaUserEdit />

@@ -2,15 +2,11 @@ import { useSelector } from 'react-redux';
 import Contact from 'components/Contact/Contact';
 import { List, Item } from './ContactList.styled';
 import Loader from 'components/Loader';
-import {
-  useGetContactsQuery,
-  useDeleteContactMutation,
-} from 'redux/contact-api';
+import { useGetContactsQuery } from 'redux/contact-api';
 import NotFound from 'components/NotFound';
 
 function ContactList() {
   const { data: contacts, isFetching, error } = useGetContactsQuery();
-  const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
   const { filter } = useSelector(state => state.filter);
 
   const filtredContacts = () => {
@@ -42,8 +38,6 @@ function ContactList() {
                   city={city}
                   company={company}
                   photo={photo}
-                  onDeleteContact={() => deleteContact(id)}
-                  deleting={isDeleting}
                 />
               </Item>
             );

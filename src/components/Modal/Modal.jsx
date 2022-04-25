@@ -6,7 +6,7 @@ import { Backdrop, ModalWrapper, Wrapper, Title, Button } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-function Modal({ children, onClose }) {
+function Modal({ children, onClose, title }) {
   useEffect(() => {
     const onPessKeyDown = e => {
       if (e.code === 'Escape') {
@@ -29,7 +29,7 @@ function Modal({ children, onClose }) {
     <Backdrop onClick={onBackdropClick}>
       <ModalWrapper>
         <Wrapper>
-          <Title>Add contact</Title>
+          <Title>{title}</Title>
           <Button type="button" onClick={onClose}>
             <AiOutlineClose />
           </Button>
