@@ -1,4 +1,4 @@
-import { Wrapper, Title, Text } from './NotFound.styled';
+import { Wrapper, Title, Text, StyledLink } from './NotFound.styled';
 import propTypes from 'prop-types';
 
 function NotFound({ data, status }) {
@@ -8,6 +8,7 @@ function NotFound({ data, status }) {
         Sorry {status} {data} :(
       </Title>
       <Text>Try reloading the page.</Text>
+      <StyledLink to="/">Go back to the main page</StyledLink>
     </Wrapper>
   );
 }

@@ -21,23 +21,26 @@ function ChangeContactForm() {
   const { data } = useGetContactByidQuery(contactId);
 
   const onSubmitForm = values => {
+    if (JSON.stringify(values) === JSON.stringify(initialValues)) {
+      return;
+    }
+
     chengeContact({ contactId, ...values });
     navigate(`/contacts/${contactId}`);
     Notify.success('The contact has been successfully changed.');
   };
 
+  const initialValues = {
+    name: data.name,
+    phone: data.phone,
+    email: data.email,
+    city: data.city,
+    company: data.company,
+  };
+
   return (
     data && (
-      <Formik
-        initialValues={{
-          name: data.name,
-          phone: data.phone,
-          email: data.email,
-          city: data.city,
-          company: data.company,
-        }}
-        onSubmit={onSubmitForm}
-      >
+      <Formik initialValues={initialValues} onSubmit={onSubmitForm}>
         {({ values, handleChange, handleSubmit }) => (
           <>
             <MainTitle>{`Edit Contact ${data.name}`}</MainTitle>
