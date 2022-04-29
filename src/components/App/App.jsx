@@ -6,6 +6,7 @@ import AddContactPage from 'pages/AddContactPage';
 import ContactInfoPage from 'pages/ContactInfoPage';
 
 function App() {
+  console.log('123');
   return (
     <>
       <Container>
