@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import AppBar from 'components/AppBar';
-import ContactsPage from 'pages/ContactsPage';
+import HomePage from 'pages/HomePage';
 import AddContactPage from 'pages/AddContactPage';
 import ContactInfoPage from 'pages/ContactInfoPage';
-
-import HomePage from 'pages/HomePage';
+import RegisterPage from 'pages/RegisterPage';
+import LoginPage from 'pages/LoginPage';
 
 function App() {
   return (
@@ -15,7 +15,9 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/contacts/add" element={<AddContactPage />} />
         <Route path="/contacts/:contactId/*" element={<ContactInfoPage />} />
-        <Route path="*" element={<ContactsPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<HomePage />} />
       </Routes>
     </>
   );

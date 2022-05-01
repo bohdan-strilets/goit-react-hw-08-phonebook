@@ -5,7 +5,7 @@ function UserBar() {
     <Wrapper>
       <UserIcon></UserIcon>
       <Text>
-        Welcome, <UserName>userName</UserName>
+        Welcome, <UserName>user@gmail.com</UserName>
       </Text>
       <Button type="button">Logout</Button>
     </Wrapper>
