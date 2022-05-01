@@ -1,20 +1,18 @@
 import { Routes, Route } from 'react-router-dom';
-import Container from 'components/Container';
-import Header from 'components/Header';
+import AppBar from 'components/AppBar';
 import ContactsPage from 'pages/ContactsPage';
 import AddContactPage from 'pages/AddContactPage';
 import ContactInfoPage from 'pages/ContactInfoPage';
 
+import HomePage from 'pages/HomePage';
+
 function App() {
-  console.log('123');
   return (
     <>
-      <Container>
-        <Header />
-      </Container>
+      <AppBar />
 
       <Routes>
-        <Route path="/" element={<ContactsPage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/contacts/add" element={<AddContactPage />} />
         <Route path="/contacts/:contactId/*" element={<ContactInfoPage />} />
         <Route path="*" element={<ContactsPage />} />
