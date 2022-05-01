@@ -1,8 +1,24 @@
 import { Formik, Form, ErrorMessage } from 'formik';
 import { Title, Label, TitleInput, Input, Button } from './LoginForm.styled';
+import * as yup from 'yup';
+import { useLoginUserMutation } from 'redux/auth-api';
+import { saveUser } from 'redux/auth-slice';
+import { useDispatch } from 'react-redux';
 
 function LoginForm() {
-  const onSubmitForm = () => {};
+  const [loginUser] = useLoginUserMutation();
+  const dispatch = useDispatch();
+
+  const onSubmitForm = async ({ email, password }) => {
+    const { data } = await loginUser({ email, password });
+    const saveUserToState = dispatch(saveUser(data));
+    return saveUserToState;
+  };
+
+  const userLoginSchema = yup.object({
+    email: yup.string().required().email(),
+    password: yup.string().required().min(7).max(14),
+  });
 
   return (
     <>
@@ -11,6 +27,7 @@ function LoginForm() {
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={onSubmitForm}
+        validationSchema={userLoginSchema}
       >
         {({ values, handleChange, handleSubmit, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
@@ -34,9 +51,7 @@ function LoginForm() {
               />
               <ErrorMessage name="password" component="div" />
             </Label>
-            <Button type="submit">
-              {isSubmitting ? '...' : 'Registration'}
-            </Button>
+            <Button type="submit">{isSubmitting ? '...' : 'Login'}</Button>
           </Form>
         )}
       </Formik>
