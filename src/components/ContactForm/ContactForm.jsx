@@ -2,7 +2,7 @@ import { Label, Title, StyledField, Button } from './ContactForm.styled';
 import {
   useCreateContactMutation,
   useGetContactsQuery,
-} from 'redux/contact-api';
+} from 'redux/contacts/contact-api';
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';

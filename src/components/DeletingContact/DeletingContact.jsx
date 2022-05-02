@@ -6,7 +6,7 @@ import {
   ButtonCancel,
   ButtonDelete,
 } from './DeletingContact.styled';
-import { useDeleteContactMutation } from 'redux/contact-api';
+import { useDeleteContactMutation } from 'redux/contacts/contact-api';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';

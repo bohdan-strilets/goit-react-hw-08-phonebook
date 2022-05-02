@@ -18,7 +18,7 @@ import {
 } from './ContactInfo.styled';
 import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import ChangeContactPage from 'pages/ChangeContactPage';
-import { useGetContactByidQuery } from 'redux/contact-api';
+import { useGetContactByidQuery } from 'redux/contacts/contact-api';
 import Loader from 'components/Loader';
 import NotFound from 'components/NotFound';
 import Modal from 'components/Modal';

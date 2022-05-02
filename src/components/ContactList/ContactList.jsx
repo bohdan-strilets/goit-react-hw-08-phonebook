@@ -2,9 +2,9 @@ import { useSelector } from 'react-redux';
 import Contact from 'components/Contact/Contact';
 import { List, Item } from './ContactList.styled';
 import Loader from 'components/Loader';
-import { useGetContactsQuery } from 'redux/contact-api';
+import { useGetContactsQuery } from 'redux/contacts/contact-api';
 import NotFound from 'components/NotFound';
-import { getFilter } from 'redux/contact-selectors';
+import { getFilter } from 'redux/contacts/contact-selectors';
 
 function ContactList() {
   const { data: contacts, isFetching, error } = useGetContactsQuery();

@@ -2,7 +2,7 @@ import Container from 'components/Container';
 import Filter from 'components/Filter';
 import ContactList from 'components/ContactList';
 import Message from 'components/Message';
-import { useGetContactsQuery } from 'redux/contact-api';
+import { useGetContactsQuery } from 'redux/contacts/contact-api';
 
 function ContactsPage() {
   const { data } = useGetContactsQuery();

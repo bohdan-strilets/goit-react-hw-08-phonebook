@@ -1,8 +1,8 @@
 import { Formik, Form, ErrorMessage } from 'formik';
 import { Title, Label, TitleInput, Input, Button } from './RegisterForm.styled';
 import * as yup from 'yup';
-import { useRegisterUserMutation } from 'redux/auth-api';
-import { saveUser } from 'redux/auth-slice';
+import { useRegisterUserMutation } from 'redux/auth/auth-api';
+import { saveUser } from 'redux/auth/auth-slice';
 import { useDispatch } from 'react-redux';
 
 function RegisterForm() {

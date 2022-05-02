@@ -9,7 +9,7 @@ import {
 import {
   useChangeContactMutation,
   useGetContactByidQuery,
-} from 'redux/contact-api';
+} from 'redux/contacts/contact-api';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 

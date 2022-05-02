@@ -1,8 +1,8 @@
 import { Formik, Form, ErrorMessage } from 'formik';
 import { Title, Label, TitleInput, Input, Button } from './LoginForm.styled';
 import * as yup from 'yup';
-import { useLoginUserMutation } from 'redux/auth-api';
-import { saveUser } from 'redux/auth-slice';
+import { useLoginUserMutation } from 'redux/auth/auth-api';
+import { saveUser } from 'redux/auth/auth-slice';
 import { useDispatch } from 'react-redux';
 
 function LoginForm() {

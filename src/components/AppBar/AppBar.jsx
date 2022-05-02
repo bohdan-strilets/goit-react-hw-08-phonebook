@@ -5,7 +5,7 @@ import Navigations from './Navigations';
 import AuthNav from './AuthNav';
 import UserBar from './UserBar';
 import { useSelector } from 'react-redux';
-import { getIsLoggedIn } from 'redux/contact-selectors';
+import { getIsLoggedIn } from 'redux/auth/auth-selecors';
 
 function AppBar() {
   const isLoggedIn = useSelector(state => getIsLoggedIn(state));
