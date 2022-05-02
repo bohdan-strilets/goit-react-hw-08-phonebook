@@ -4,15 +4,18 @@ import Logo from './Logo';
 import Navigations from './Navigations';
 import AuthNav from './AuthNav';
 import UserBar from './UserBar';
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn } from 'redux/contact-selectors';
 
 function AppBar() {
+  const isLoggedIn = useSelector(state => getIsLoggedIn(state));
+
   return (
     <Container>
       <Wrapper>
         <Logo />
         <Navigations />
-        <AuthNav />
-        <UserBar />
+        {isLoggedIn ? <UserBar /> : <AuthNav />}
       </Wrapper>
     </Container>
   );

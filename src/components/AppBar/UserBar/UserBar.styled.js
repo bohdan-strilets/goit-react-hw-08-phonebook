@@ -13,14 +13,23 @@ export const UserIcon = styled(BiUser)`
   border-radius: 50%;
 `;
 
+export const TextWrapper = styled.div`
+  margin-left: 25px;
+  margin-right: 25px;
+`;
+
 export const Text = styled.p`
-  margin-left: 15px;
-  margin-right: 15px;
   font-weight: 700;
+  margin-bottom: 5px;
 `;
 
 export const UserName = styled.span`
   color: var(--accent-text-color);
+`;
+
+export const Email = styled.p`
+  font-size: 14px;
+  color: #cccccc;
 `;
 
 export const Button = styled.button`

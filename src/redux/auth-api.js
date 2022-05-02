@@ -4,6 +4,15 @@ export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://connections-api.herokuapp.com',
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.token;
+
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+
+      return headers;
+    },
   }),
 
   endpoints: builder => ({
@@ -28,6 +37,13 @@ export const authApi = createApi({
         body: user,
       }),
     }),
+
+    logoutUser: builder.mutation({
+      query: () => ({
+        url: '/users/logout',
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
@@ -35,4 +51,5 @@ export const {
   useGetUserQuery,
   useRegisterUserMutation,
   useLoginUserMutation,
+  useLogoutUserMutation,
 } = authApi;

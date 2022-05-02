@@ -17,6 +17,12 @@ export const authSlice = createSlice({
       state.token = payload.token;
       state.isLoggedIn = true;
     },
+
+    clearUser(state, _) {
+      state.user = { name: null, email: null };
+      state.token = null;
+      state.isLoggedIn = false;
+    },
   },
 });
 
@@ -31,5 +37,5 @@ export const authSlice = createSlice({
 //   authSlice.reducer,
 // );
 
-export const { saveUser, saveToken } = authSlice.actions;
+export const { saveUser, clearUser } = authSlice.actions;
 export default authSlice.reducer;
