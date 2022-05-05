@@ -15,14 +15,14 @@ function ContactForm() {
   const [createContact] = useCreateContactMutation();
   const { data: contacts } = useGetContactsQuery();
 
-  const onSubmitForm = ({ name, phone, email, city, company }) => {
+  const onSubmitForm = ({ name, number }) => {
     contacts.some(contact => contact.name === name)
       ? Report.warning(
           `${name}`,
           'This user is already in the contact list.',
           'OK',
         )
-      : createContact({ name, phone, email, city, company });
+      : createContact({ name, number });
 
     navigate('/');
 
@@ -31,15 +31,12 @@ function ContactForm() {
 
   const contactSchema = yup.object({
     name: yup.string().required().min(3).max(30),
-    phone: yup.number().required(),
-    email: yup.string().email(),
-    city: yup.string().min(3).max(30),
-    company: yup.string().min(3).max(50),
+    number: yup.number().required(),
   });
 
   return (
     <Formik
-      initialValues={{ name: '', phone: '', email: '', city: '', company: '' }}
+      initialValues={{ name: '', number: '' }}
       onSubmit={onSubmitForm}
       validationSchema={contactSchema}
     >
@@ -56,44 +53,14 @@ function ContactForm() {
             <ErrorMessage name="name" component="div" />
           </Label>
           <Label>
-            <Title>Phone</Title>
+            <Title>Number</Title>
             <StyledField
               type="tel"
-              name="phone"
+              name="number"
               onChange={handleChange}
-              value={values.phone}
+              value={values.number}
             />
-            <ErrorMessage name="phone" component="div" />
-          </Label>
-          <Label>
-            <Title>Email</Title>
-            <StyledField
-              type="email"
-              name="email"
-              onChange={handleChange}
-              value={values.email}
-            />
-            <ErrorMessage name="email" component="div" />
-          </Label>
-          <Label>
-            <Title>City</Title>
-            <StyledField
-              type="text"
-              name="city"
-              onChange={handleChange}
-              value={values.city}
-            />
-            <ErrorMessage name="city" component="div" />
-          </Label>
-          <Label>
-            <Title>Company</Title>
-            <StyledField
-              type="text"
-              name="company"
-              onChange={handleChange}
-              value={values.company}
-            />
-            <ErrorMessage name="company" component="div" />
+            <ErrorMessage name="number" component="div" />
           </Label>
           <Button type="submit" disabled={isSubmitting}>
             Add contact

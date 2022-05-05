@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import { Field } from 'formik';
 
 export const MainTitle = styled.h2`
-  margin-top: 100px;
-  margin-bottom: 50px;
+  /* margin-top: 100px;
+  margin-bottom: 50px; */
 `;
 
 export const Label = styled.label`

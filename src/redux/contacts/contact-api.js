@@ -1,59 +1,72 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import axios from 'axios';
+
+const axiosBaseQuery =
+  ({ baseUrl } = { baseUrl: '' }) =>
+  async ({ url, method, data }) => {
+    try {
+      const result = await axios({ url: baseUrl + url, method, data });
+      return { data: result.data };
+    } catch (axiosError) {
+      let err = axiosError;
+      return {
+        error: {
+          status: err.response?.status,
+          data: err.response?.data || err.message,
+        },
+      };
+    }
+  };
 
 export const contactApi = createApi({
   reducerPath: 'contactApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://62611516f429c20deb9a448f.mockapi.io/api/v1',
+  baseQuery: axiosBaseQuery({
+    baseUrl: 'https://connections-api.herokuapp.com',
   }),
 
-  tagTypes: ['Contacts', 'Contact'],
+  tagTypes: ['Contacts'],
 
-  endpoints: builder => ({
-    getContacts: builder.query({
-      query: () => ({
-        url: '/contacts',
+  endpoints(build) {
+    return {
+      // Get a list of all contacts
+      getContacts: build.query({
+        query: () => ({ url: '/contacts', method: 'get' }),
       }),
-      providesTags: ['Contacts'],
-    }),
 
-    getContactByid: builder.query({
-      query: id => ({
-        url: `/contacts/${id}`,
+      // Delete selected contact
+      deleteContact: build.mutation({
+        query: contactId => ({
+          url: `/contacts/${contactId}`,
+          method: 'delete',
+        }),
+        providesTags: ['Contacts'],
       }),
-      providesTags: ['Contact'],
-    }),
 
-    deleteContact: builder.mutation({
-      query: contactId => ({
-        url: `/contacts/${contactId}`,
-        method: 'DELETE',
+      // Create a new contact
+      createContact: build.mutation({
+        query: newContact => ({
+          url: '/contacts',
+          method: 'post',
+          data: newContact,
+        }),
+        providesTags: ['Contacts'],
       }),
-      invalidatesTags: ['Contacts'],
-    }),
 
-    createContact: builder.mutation({
-      query: newContact => ({
-        url: '/contacts',
-        method: 'POST',
-        body: newContact,
+      // Edit a existing contact
+      changeContact: build.mutation({
+        query: ({ contactId, ...contact }) => ({
+          query: `/contacts/${contactId}`,
+          method: 'patch',
+          data: contact,
+        }),
+        providesTags: ['Contacts'],
       }),
-      invalidatesTags: ['Contacts'],
-    }),
-
-    changeContact: builder.mutation({
-      query: ({ contactId, ...newContact }) => ({
-        url: `/contacts/${contactId}`,
-        method: 'PUT',
-        body: newContact,
-      }),
-      invalidatesTags: ['Contact', 'Contacts'],
-    }),
-  }),
+    };
+  },
 });
 
 export const {
   useGetContactsQuery,
-  useGetContactByidQuery,
   useDeleteContactMutation,
   useCreateContactMutation,
   useChangeContactMutation,

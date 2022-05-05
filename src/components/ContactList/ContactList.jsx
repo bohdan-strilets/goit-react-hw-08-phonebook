@@ -27,23 +27,13 @@ function ContactList() {
       {isFetching && <Loader />}
       {error && <NotFound data={error.data} status={error.status} />}
       {contacts &&
-        filteredContactList.map(
-          ({ id, name, phone, email, city, company, photo }) => {
-            return (
-              <Item key={id}>
-                <Contact
-                  id={id}
-                  name={name}
-                  phone={phone}
-                  email={email}
-                  city={city}
-                  company={company}
-                  photo={photo}
-                />
-              </Item>
-            );
-          },
-        )}
+        filteredContactList.map(({ id, name, number }) => {
+          return (
+            <Item key={id}>
+              <Contact id={id} name={name} number={number} />
+            </Item>
+          );
+        })}
     </List>
   );
 }

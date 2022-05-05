@@ -9,20 +9,15 @@ import {
 } from './UserBar.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { getName, getEmail } from 'redux/auth/auth-selecors';
-import { useLogoutUserMutation } from 'redux/auth/auth-api';
-import { clearUser } from 'redux/auth/auth-slice';
+import operations from 'redux/auth/auth-operations';
 
 function UserBar() {
   const userName = useSelector(state => getName(state));
   const userEmail = useSelector(state => getEmail(state));
 
   const dispatch = useDispatch();
-  const [logoutUser] = useLogoutUserMutation();
 
-  const logout = async () => {
-    await logoutUser();
-    return dispatch(clearUser());
-  };
+  const logout = () => dispatch(operations.logoutUser());
 
   return (
     <Wrapper>

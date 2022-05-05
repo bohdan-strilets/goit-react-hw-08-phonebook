@@ -1,18 +1,14 @@
 import { Formik, Form, ErrorMessage } from 'formik';
 import { Title, Label, TitleInput, Input, Button } from './LoginForm.styled';
 import * as yup from 'yup';
-import { useLoginUserMutation } from 'redux/auth/auth-api';
-import { saveUser } from 'redux/auth/auth-slice';
 import { useDispatch } from 'react-redux';
+import operations from 'redux/auth/auth-operations';
 
 function LoginForm() {
-  const [loginUser] = useLoginUserMutation();
   const dispatch = useDispatch();
 
-  const onSubmitForm = async ({ email, password }) => {
-    const { data } = await loginUser({ email, password });
-    const saveUserToState = dispatch(saveUser(data));
-    return saveUserToState;
+  const onSubmitForm = ({ email, password }) => {
+    dispatch(operations.loginUser({ email, password }));
   };
 
   const userLoginSchema = yup.object({

@@ -8,7 +8,7 @@ import {
 } from './ChangeContactForm.styled';
 import {
   useChangeContactMutation,
-  useGetContactByidQuery,
+  useGetContactsQuery,
 } from 'redux/contacts/contact-api';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -18,36 +18,34 @@ function ChangeContactForm() {
   const navigate = useNavigate();
 
   const [chengeContact, { isLoading: isUpdating }] = useChangeContactMutation();
-  const { data: contact } = useGetContactByidQuery(contactId);
+  const { data: contacts } = useGetContactsQuery();
+
+  const currentContact = contacts.find(contact => contact.id === contactId);
 
   const onSubmitForm = values => {
     if (JSON.stringify(values) === JSON.stringify(initialValues)) {
       Notify.warning('Try to change something first.');
       return;
     }
-
     chengeContact({ contactId, ...values });
     navigate(`/contacts/${contactId}`);
     Notify.success('The contact has been successfully changed.');
   };
 
   let initialValues = null;
-  if (contact) {
+  if (contacts) {
     initialValues = {
-      name: contact.name,
-      phone: contact.phone,
-      email: contact.email,
-      city: contact.city,
-      company: contact.company,
+      name: currentContact.name,
+      number: currentContact.number,
     };
   }
 
   return (
-    contact && (
+    contacts && (
       <Formik initialValues={initialValues} onSubmit={onSubmitForm}>
         {({ values, handleChange, handleSubmit }) => (
           <>
-            <MainTitle>{`Edit Contact ${contact.name}`}</MainTitle>
+            <MainTitle>{`Edit Contact ${currentContact.name}`}</MainTitle>
             <Form onSubmit={handleSubmit}>
               <Label>
                 <Title>Name</Title>
@@ -60,44 +58,14 @@ function ChangeContactForm() {
                 <ErrorMessage name="name" component="div" />
               </Label>
               <Label>
-                <Title>Phone</Title>
+                <Title>Number</Title>
                 <StyledField
                   type="tel"
-                  name="phone"
+                  name="number"
                   onChange={handleChange}
-                  value={values.phone}
+                  value={values.number}
                 />
-                <ErrorMessage name="phone" component="div" />
-              </Label>
-              <Label>
-                <Title>Email</Title>
-                <StyledField
-                  type="email"
-                  name="email"
-                  onChange={handleChange}
-                  value={values.email}
-                />
-                <ErrorMessage name="email" component="div" />
-              </Label>
-              <Label>
-                <Title>City</Title>
-                <StyledField
-                  type="text"
-                  name="city"
-                  onChange={handleChange}
-                  value={values.city}
-                />
-                <ErrorMessage name="city" component="div" />
-              </Label>
-              <Label>
-                <Title>Company</Title>
-                <StyledField
-                  type="text"
-                  name="company"
-                  onChange={handleChange}
-                  value={values.company}
-                />
-                <ErrorMessage name="company" component="div" />
+                <ErrorMessage name="number" component="div" />
               </Label>
               <Button type="submit">
                 {isUpdating ? '...' : 'Change contact'}

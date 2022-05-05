@@ -1,18 +1,14 @@
 import { Formik, Form, ErrorMessage } from 'formik';
 import { Title, Label, TitleInput, Input, Button } from './RegisterForm.styled';
 import * as yup from 'yup';
-import { useRegisterUserMutation } from 'redux/auth/auth-api';
-import { saveUser } from 'redux/auth/auth-slice';
 import { useDispatch } from 'react-redux';
+import operations from 'redux/auth/auth-operations';
 
 function RegisterForm() {
-  const [registerUser] = useRegisterUserMutation();
   const dispatch = useDispatch();
 
-  const onSubmitForm = async ({ name, email, password }) => {
-    const { data } = await registerUser({ name, email, password });
-    const saveUserToState = dispatch(saveUser(data));
-    return saveUserToState;
+  const onSubmitForm = ({ name, email, password }) => {
+    dispatch(operations.registerUser({ name, email, password }));
   };
 
   const userRegisterSchema = yup.object({
