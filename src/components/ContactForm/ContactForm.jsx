@@ -24,7 +24,7 @@ function ContactForm() {
         )
       : createContact({ name, number });
 
-    navigate('/');
+    navigate('/contacts');
 
     Notify.success(`The ${name} has been added to your contact list.`);
   };

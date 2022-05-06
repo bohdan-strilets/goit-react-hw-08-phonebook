@@ -1,14 +1,17 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+
 import AppBar from 'components/AppBar';
+import NotFound from 'components/NotFound';
+
 import HomePage from 'pages/HomePage';
 import ContactsPage from 'pages/ContactsPage';
 import AddContactPage from 'pages/AddContactPage';
 import ChangeContactPage from 'pages/ChangeContactPage';
 import RegisterPage from 'pages/RegisterPage';
 import LoginPage from 'pages/LoginPage';
-import NotFound from 'components/NotFound';
+
 import operations from 'redux/auth/auth-operations';
 
 function App() {
@@ -21,7 +24,6 @@ function App() {
   return (
     <>
       <AppBar />
-
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/contacts/*" element={<ContactsPage />} />

@@ -10,14 +10,19 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { getName, getEmail } from 'redux/auth/auth-selecors';
 import operations from 'redux/auth/auth-operations';
+import { useNavigate } from 'react-router-dom';
 
 function UserBar() {
   const userName = useSelector(state => getName(state));
   const userEmail = useSelector(state => getEmail(state));
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const logout = () => dispatch(operations.logoutUser());
+  const logout = () => {
+    dispatch(operations.logoutUser());
+    navigate('/');
+  };
 
   return (
     <Wrapper>

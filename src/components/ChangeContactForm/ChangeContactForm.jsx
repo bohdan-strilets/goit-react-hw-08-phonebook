@@ -28,7 +28,7 @@ function ChangeContactForm() {
       return;
     }
     chengeContact({ contactId, ...values });
-    navigate(`/contacts/${contactId}`);
+    navigate('/contacts');
     Notify.success('The contact has been successfully changed.');
   };
 

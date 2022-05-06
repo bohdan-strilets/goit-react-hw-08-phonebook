@@ -14,9 +14,9 @@ const token = {
 };
 
 // Register new user
-const registerUser = createAsyncThunk('auth/registr', async credentials => {
+const registerUser = createAsyncThunk('auth/registr', async user => {
   try {
-    const { data } = await axios.post('/users/signup', credentials);
+    const { data } = await axios.post('/users/signup', user);
     token.set(data.token);
     return data;
   } catch (error) {
@@ -25,9 +25,9 @@ const registerUser = createAsyncThunk('auth/registr', async credentials => {
 });
 
 // Log a previosly created user
-const loginUser = createAsyncThunk('auth/login', async credentials => {
+const loginUser = createAsyncThunk('auth/login', async user => {
   try {
-    const { data } = await axios.post('users/login', credentials);
+    const { data } = await axios.post('users/login', user);
     token.set(data.token);
     return data;
   } catch (error) {

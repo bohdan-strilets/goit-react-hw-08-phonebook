@@ -3,12 +3,15 @@ import { Title, Label, TitleInput, Input, Button } from './RegisterForm.styled';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import operations from 'redux/auth/auth-operations';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterForm() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onSubmitForm = ({ name, email, password }) => {
     dispatch(operations.registerUser({ name, email, password }));
+    navigate('/contacts');
   };
 
   const userRegisterSchema = yup.object({
