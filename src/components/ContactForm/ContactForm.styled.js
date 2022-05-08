@@ -1,6 +1,12 @@
 import styled from '@emotion/styled';
 import { Field } from 'formik';
 
+export const TitlePage = styled.h2`
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  font-weight: 900;
+`;
+
 export const Label = styled.label`
   display: flex;
   flex-direction: column;

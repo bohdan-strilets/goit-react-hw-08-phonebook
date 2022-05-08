@@ -12,6 +12,8 @@ import {
 } from 'redux/contacts/contact-api';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import * as yup from 'yup';
+import GoBack from 'components/GoBack';
 
 function ChangeContactForm() {
   const { contactId } = useParams();
@@ -40,12 +42,22 @@ function ChangeContactForm() {
     };
   }
 
+  const contactSchema = yup.object({
+    name: yup.string().required().min(3).max(30),
+    number: yup.number().required(),
+  });
+
   return (
     contacts && (
-      <Formik initialValues={initialValues} onSubmit={onSubmitForm}>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmitForm}
+        validationSchema={contactSchema}
+      >
         {({ values, handleChange, handleSubmit }) => (
           <>
             <MainTitle>{`Edit Contact ${currentContact.name}`}</MainTitle>
+            <GoBack text="Contact list" path="/contacts" />
             <Form onSubmit={handleSubmit}>
               <Label>
                 <Title>Name</Title>

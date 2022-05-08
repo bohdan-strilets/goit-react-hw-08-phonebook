@@ -2,7 +2,9 @@ import styled from '@emotion/styled';
 import { Field } from 'formik';
 
 export const MainTitle = styled.h2`
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  font-weight: 900;
 `;
 
 export const Label = styled.label`
