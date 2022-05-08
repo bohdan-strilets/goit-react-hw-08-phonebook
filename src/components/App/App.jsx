@@ -6,6 +6,7 @@ import NotFound from 'components/NotFound';
 import PrivateRoute from 'components/PrivateRoute';
 import PublicRoute from 'components/PublicRoute';
 import Loader from 'components/Loader';
+import Footer from 'components/Footer';
 import operations from 'redux/auth/auth-operations';
 
 const HomePage = lazy(() => import('pages/HomePage'));
@@ -86,6 +87,8 @@ function App() {
           />
         </Routes>
       </Suspense>
+
+      <Footer />
     </>
   );
 }
