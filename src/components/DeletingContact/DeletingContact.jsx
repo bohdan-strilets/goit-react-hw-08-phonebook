@@ -18,6 +18,7 @@ function DeletingContact({ id, name, togleModal }) {
   const deleteSelectedContact = () => {
     deleteContact(id);
     navigate('/contacts');
+    togleModal();
     Notify.success(`The ${name} has been removed from your contact list.`);
   };
 

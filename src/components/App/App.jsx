@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 
 import AppBar from 'components/AppBar';
 import NotFound from 'components/NotFound';
+import PrivateRoute from 'components/PrivateRoute';
+import PublicRoute from 'components/PublicRoute';
 
 import HomePage from 'pages/HomePage';
 import ContactsPage from 'pages/ContactsPage';
@@ -24,17 +26,64 @@ function App() {
   return (
     <>
       <AppBar />
+
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/contacts/*" element={<ContactsPage />} />
-        <Route path="/contacts/add" element={<AddContactPage />} />
+        <Route
+          path="/"
+          element={
+            <PublicRoute>
+              <HomePage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/contacts/*"
+          element={
+            <PrivateRoute>
+              <ContactsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/contacts/add"
+          element={
+            <PublicRoute>
+              <AddContactPage />
+            </PublicRoute>
+          }
+        />
         <Route
           path="/contacts/edit/:contactId"
-          element={<ChangeContactPage />}
+          element={
+            <PublicRoute>
+              <ChangeContactPage />
+            </PublicRoute>
+          }
         />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute restricted>
+              <RegisterPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute restricted>
+              <LoginPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <PublicRoute>
+              <NotFound />
+            </PublicRoute>
+          }
+        />
       </Routes>
     </>
   );

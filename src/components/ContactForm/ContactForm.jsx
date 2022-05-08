@@ -23,6 +23,7 @@ function ContactForm() {
           'OK',
         )
       : createContact({ name, number });
+    createContact({ name, number });
 
     navigate('/contacts');
 

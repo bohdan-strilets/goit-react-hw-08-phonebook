@@ -11,7 +11,7 @@ function RegisterForm() {
 
   const onSubmitForm = ({ name, email, password }) => {
     dispatch(operations.registerUser({ name, email, password }));
-    navigate('/contacts');
+    navigate('/');
   };
 
   const userRegisterSchema = yup.object({

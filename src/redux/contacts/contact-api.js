@@ -1,63 +1,55 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import axios from 'axios';
-
-const axiosBaseQuery =
-  ({ baseUrl } = { baseUrl: '' }) =>
-  async ({ url, method, data }) => {
-    try {
-      const result = await axios({ url: baseUrl + url, method, data });
-      return { data: result.data };
-    } catch (axiosError) {
-      let err = axiosError;
-      return {
-        error: {
-          status: err.response?.status,
-          data: err.response?.data || err.message,
-        },
-      };
-    }
-  };
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const contactApi = createApi({
   reducerPath: 'contactApi',
-  baseQuery: axiosBaseQuery({
+  baseQuery: fetchBaseQuery({
     baseUrl: 'https://connections-api.herokuapp.com',
+
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.token;
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
+
   tagTypes: ['Contacts'],
 
   endpoints: build => ({
-    // Get a list of all contacts
+    // Get a list of all contactss
     getContacts: build.query({
-      query: () => ({ url: '/contacts', method: 'get' }),
+      query: () => ({ url: '/contacts' }),
+      providesTags: ['Contacts'],
     }),
 
     // Delete selected contact
     deleteContact: build.mutation({
       query: contactId => ({
         url: `/contacts/${contactId}`,
-        method: 'delete',
+        method: 'DELETE',
       }),
-      providesTags: ['Contacts'],
+      invalidatesTags: ['Contacts'],
     }),
 
     // Create a new contact
     createContact: build.mutation({
       query: newContact => ({
         url: '/contacts',
-        method: 'post',
-        data: newContact,
+        method: 'POST',
+        body: newContact,
       }),
-      providesTags: ['Contacts'],
+      invalidatesTags: ['Contacts'],
     }),
 
     // Edit a existing contact
     changeContact: build.mutation({
       query: ({ contactId, ...contact }) => ({
-        query: `/contacts/${contactId}`,
-        method: 'patch',
-        data: contact,
+        url: `/contacts/${contactId}`,
+        method: 'PATCH',
+        body: contact,
       }),
-      providesTags: ['Contacts'],
+      invalidatesTags: ['Contacts'],
     }),
   }),
 });
