@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { FaTrash, FaUserEdit, FaStar } from 'react-icons/fa';
+import { FaTrash, FaUserEdit } from 'react-icons/fa';
 import {
   NameWrapper,
   Wrapper,
@@ -15,7 +15,6 @@ import Modal from 'components/Modal';
 import useShowModal from 'hooks/useShowModal';
 import DeletingContact from 'components/DeletingContact';
 import { useNavigate } from 'react-router-dom';
-import { getFavoritesList } from 'redux/contacts/contact-selectors';
 
 function Contact({ id, name, number }) {
   const { showModal, togleModal } = useShowModal(false);
