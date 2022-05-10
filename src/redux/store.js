@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { contactApi } from './contacts/contact-api';
 import { persisteAuthReducer } from './auth/auth-slice';
-import { persisteContactsReducer } from './contacts/contacts-slice';
+import contactsSlice from './contacts/contacts-slice';
 import {
   persistStore,
   FLUSH,
@@ -14,7 +14,7 @@ import {
 
 export const store = configureStore({
   reducer: {
-    contacts: persisteContactsReducer,
+    contacts: contactsSlice,
     auth: persisteAuthReducer,
     [contactApi.reducerPath]: contactApi.reducer,
   },

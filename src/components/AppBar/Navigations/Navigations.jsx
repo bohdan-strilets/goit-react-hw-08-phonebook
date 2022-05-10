@@ -15,9 +15,6 @@ function Navigations() {
           <Item>
             <Link to="/contacts">Contacts</Link>
           </Item>
-          <Item>
-            <Link to="/favorites">Favorites</Link>
-          </Item>
         </>
       )}
     </List>

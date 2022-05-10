@@ -11,7 +11,6 @@ import operations from 'redux/auth/auth-operations';
 
 const HomePage = lazy(() => import('pages/HomePage'));
 const ContactsPage = lazy(() => import('pages/ContactsPage'));
-const FavoritePage = lazy(() => import('pages/FavoritePage'));
 const AddContactPage = lazy(() => import('pages/AddContactPage'));
 const ChangeContactPage = lazy(() => import('pages/ChangeContactPage'));
 const RegisterPage = lazy(() => import('pages/RegisterPage'));
@@ -43,14 +42,6 @@ function App() {
             element={
               <PrivateRoute>
                 <ContactsPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/favorites/*"
-            element={
-              <PrivateRoute>
-                <FavoritePage />
               </PrivateRoute>
             }
           />

@@ -15,29 +15,11 @@ import Modal from 'components/Modal';
 import useShowModal from 'hooks/useShowModal';
 import DeletingContact from 'components/DeletingContact';
 import { useNavigate } from 'react-router-dom';
-import { toggleFavorites } from 'redux/contacts/contacts-slice';
-import { useDispatch, useSelector } from 'react-redux';
 import { getFavoritesList } from 'redux/contacts/contact-selectors';
-import { useState, useEffect } from 'react';
 
 function Contact({ id, name, number }) {
-  const [isFavorites, setIsFavorites] = useState(false);
-
   const { showModal, togleModal } = useShowModal(false);
-  const { favorites } = useSelector(state => getFavoritesList(state));
-
-  useEffect(() => {
-    setIsFavorites(favorites.some(contact => contact.id === id));
-  }, [favorites, id]);
-
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const addContactToFavorite = () => {
-    const favoriteContact = { id, name, number };
-
-    dispatch(toggleFavorites(favoriteContact));
-  };
 
   return (
     <>
@@ -63,11 +45,6 @@ function Contact({ id, name, number }) {
             <ButtonItem>
               <Button type="button" onClick={() => navigate(`edit/${id}`)}>
                 <FaUserEdit />
-              </Button>
-            </ButtonItem>
-            <ButtonItem>
-              <Button type="button" onClick={addContactToFavorite}>
-                <FaStar color={isFavorites ? '#f0a70a' : '#0084ff'} />
               </Button>
             </ButtonItem>
           </ButtonList>

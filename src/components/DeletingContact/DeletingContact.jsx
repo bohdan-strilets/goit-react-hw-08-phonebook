@@ -10,17 +10,13 @@ import { useDeleteContactMutation } from 'redux/contacts/contact-api';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { toggleFavorites } from 'redux/contacts/contacts-slice';
 
 function DeletingContact({ id, name, togleModal }) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
 
   const deleteSelectedContact = () => {
     deleteContact(id);
-    dispatch(toggleFavorites({ id, name }));
     navigate('/contacts');
     togleModal();
     Notify.success(`The ${name} has been removed from your contact list.`);
