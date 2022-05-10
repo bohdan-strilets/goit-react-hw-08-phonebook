@@ -12,7 +12,11 @@ function ContactsPage() {
     <Container title="Contacts">
       <AddButton />
       <Filter />
-      {data && data.length > 0 ? <ContactList /> : <Message />}
+      {data && data.length > 0 ? (
+        <ContactList />
+      ) : (
+        <Message message="Contact list is empty." />
+      )}
     </Container>
   );
 }

@@ -23,18 +23,20 @@ function ContactList() {
   const filteredContactList = filtredContacts();
 
   return (
-    <List>
+    <>
       {isFetching && <Loader />}
       {error && <NotFound data={error.data} status={error.status} />}
-      {contacts &&
-        filteredContactList.map(({ id, name, number }) => {
-          return (
-            <Item key={id}>
-              <Contact id={id} name={name} number={number} />
-            </Item>
-          );
-        })}
-    </List>
+      <List>
+        {contacts &&
+          filteredContactList.map(({ id, name, number }) => {
+            return (
+              <Item key={id}>
+                <Contact id={id} name={name} number={number} />
+              </Item>
+            );
+          })}
+      </List>
+    </>
   );
 }
 

@@ -1,9 +1,9 @@
 import { Wrapper, Text } from './Message.styled';
 
-function Message() {
+function Message({ message }) {
   return (
     <Wrapper>
-      <Text>Contact list is empty.</Text>
+      <Text>{message}</Text>
     </Wrapper>
   );
 }
