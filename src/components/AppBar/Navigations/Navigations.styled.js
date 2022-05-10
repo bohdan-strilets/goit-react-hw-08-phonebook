@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export const List = styled.ul`
   display: flex;
+  margin-bottom: 20px;
 `;
 
 export const Item = styled.li`

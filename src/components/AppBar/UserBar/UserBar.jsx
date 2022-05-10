@@ -1,5 +1,6 @@
 import {
   Wrapper,
+  GroupWrapper,
   UserIcon,
   TextWrapper,
   Text,
@@ -26,13 +27,15 @@ function UserBar() {
 
   return (
     <Wrapper>
-      <UserIcon></UserIcon>
-      <TextWrapper>
-        <Text>
-          Welcome, <UserName>{userName}</UserName>
-        </Text>
-        <Email>{userEmail}</Email>
-      </TextWrapper>
+      <GroupWrapper>
+        <UserIcon />
+        <TextWrapper>
+          <Text>
+            Welcome, <UserName>{userName}</UserName>
+          </Text>
+          <Email>{userEmail}</Email>
+        </TextWrapper>
+      </GroupWrapper>
       <Button type="button" onClick={logout}>
         Logout
       </Button>

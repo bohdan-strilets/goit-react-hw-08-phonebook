@@ -2,8 +2,23 @@ import styled from '@emotion/styled';
 import { BiUser } from 'react-icons/bi';
 
 export const Wrapper = styled.div`
+  @media screen and (min-width: 1440px) {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+export const GroupWrapper = styled.div`
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 767px) {
+    margin-bottom: 20px;
+  }
+
+  @media screen and (max-width: 1440px) {
+    margin-bottom: 20px;
+  }
 `;
 
 export const UserIcon = styled(BiUser)`
@@ -51,5 +66,9 @@ export const Button = styled.button`
   :hover,
   :focus {
     background-color: var(--second-bg-color);
+  }
+
+  @media screen and (max-width: 1439px) {
+    width: 100%;
   }
 `;

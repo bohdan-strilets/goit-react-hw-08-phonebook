@@ -2,20 +2,23 @@ import styled from '@emotion/styled';
 import { FaUser } from 'react-icons/fa';
 
 export const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 10px;
-
   background-color: #fafafa;
   border-radius: 10px;
   border: 1px solid #f2f2f2;
+
+  padding: 10px;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;
 
 export const NameWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const IconUser = styled(FaUser)`
@@ -31,18 +34,14 @@ export const Name = styled.p`
   color: var(--main-text-color);
 `;
 
-export const NumberWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 export const Number = styled.p`
-  margin-right: 30px;
+  text-align: center;
 `;
 
 export const ButtonList = styled.ul`
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
 `;
 
 export const ButtonItem = styled.li`

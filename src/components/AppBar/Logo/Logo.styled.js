@@ -10,8 +10,7 @@ export const Title = styled(Link)`
 
   color: var(--main-text-color);
 
-  padding-top: 20px;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
 
   transition: color var(--main-hover-animation);
 

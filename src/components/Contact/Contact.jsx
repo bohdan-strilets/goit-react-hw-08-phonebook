@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import { FaTrash, FaUserEdit } from 'react-icons/fa';
 import {
-  NameWrapper,
   Wrapper,
+  NameWrapper,
   IconUser,
   Name,
-  NumberWrapper,
   Number,
   ButtonList,
   ButtonItem,
@@ -33,21 +32,21 @@ function Contact({ id, name, number }) {
           <IconUser />
           <Name>{name}</Name>
         </NameWrapper>
-        <NumberWrapper>
-          <ButtonList>
-            <Number>{number}</Number>
-            <ButtonItem>
-              <Button type="button" onClick={togleModal}>
-                <FaTrash />
-              </Button>
-            </ButtonItem>
-            <ButtonItem>
-              <Button type="button" onClick={() => navigate(`edit/${id}`)}>
-                <FaUserEdit />
-              </Button>
-            </ButtonItem>
-          </ButtonList>
-        </NumberWrapper>
+
+        <Number>{number}</Number>
+
+        <ButtonList>
+          <ButtonItem>
+            <Button type="button" onClick={togleModal}>
+              <FaTrash />
+            </Button>
+          </ButtonItem>
+          <ButtonItem>
+            <Button type="button" onClick={() => navigate(`edit/${id}`)}>
+              <FaUserEdit />
+            </Button>
+          </ButtonItem>
+        </ButtonList>
       </Wrapper>
     </>
   );
