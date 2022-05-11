@@ -1,3 +1,4 @@
+import propTypes from 'prop-types';
 import { Wrapper, Text } from './Message.styled';
 
 function Message({ message }) {
@@ -7,5 +8,9 @@ function Message({ message }) {
     </Wrapper>
   );
 }
+
+Message.prototype = {
+  message: propTypes.string,
+};
 
 export default Message;

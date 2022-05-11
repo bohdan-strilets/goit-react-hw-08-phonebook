@@ -16,14 +16,14 @@ import DeletingContact from 'components/DeletingContact';
 import { useNavigate } from 'react-router-dom';
 
 function Contact({ id, name, number }) {
-  const { showModal, togleModal } = useShowModal(false);
+  const { showModal, toggleModal } = useShowModal(false);
   const navigate = useNavigate();
 
   return (
     <>
       {showModal && (
-        <Modal onClose={togleModal} title={name}>
-          <DeletingContact id={id} name={name} togleModal={togleModal} />
+        <Modal onClose={toggleModal} title={name}>
+          <DeletingContact id={id} name={name} toggleModal={toggleModal} />
         </Modal>
       )}
 
@@ -37,7 +37,7 @@ function Contact({ id, name, number }) {
 
         <ButtonList>
           <ButtonItem>
-            <Button type="button" onClick={togleModal}>
+            <Button type="button" onClick={toggleModal}>
               <FaTrash />
             </Button>
           </ButtonItem>

@@ -6,7 +6,7 @@ export const LoaderWrapper = styled.div`
   text-align: center;
 `;
 
-export const StyledIcon = styled(AiOutlineLoading3Quarters)`
+export const Spinner = styled(AiOutlineLoading3Quarters)`
   @keyframes spiner {
     0% {
       transform: rotate(0deg);

@@ -8,22 +8,14 @@ import {
   Email,
   Button,
 } from './UserBar.styled';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getName, getEmail } from 'redux/auth/auth-selecors';
-import operations from 'redux/auth/auth-operations';
-import { useNavigate } from 'react-router-dom';
+import useLogoutUser from 'hooks/useLogoutUser';
 
 function UserBar() {
   const userName = useSelector(state => getName(state));
   const userEmail = useSelector(state => getEmail(state));
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const logout = () => {
-    dispatch(operations.logoutUser());
-    navigate('/');
-  };
+  const logout = useLogoutUser();
 
   return (
     <Wrapper>

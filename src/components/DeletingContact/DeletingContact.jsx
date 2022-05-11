@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   Text,
   Name,
@@ -6,21 +7,14 @@ import {
   ButtonCancel,
   ButtonDelete,
 } from './DeletingContact.styled';
-import { useDeleteContactMutation } from 'redux/contacts/contact-api';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import useDeletingContact from 'hooks/useDeletingContact';
 
-function DeletingContact({ id, name, togleModal }) {
-  const navigate = useNavigate();
-  const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
-
-  const deleteSelectedContact = () => {
-    deleteContact(id);
-    navigate('/contacts');
-    togleModal();
-    Notify.success(`The ${name} has been removed from your contact list.`);
-  };
+function DeletingContact({ id, name, toggleModal }) {
+  const { isDeleting, deleteSelectedContact } = useDeletingContact(
+    id,
+    name,
+    toggleModal,
+  );
 
   return (
     <>
@@ -29,7 +23,7 @@ function DeletingContact({ id, name, togleModal }) {
       </Text>
       <List>
         <Item>
-          <ButtonCancel type="button" onClick={togleModal}>
+          <ButtonCancel type="button" onClick={toggleModal}>
             Cancel
           </ButtonCancel>
         </Item>

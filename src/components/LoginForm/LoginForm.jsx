@@ -1,28 +1,14 @@
 import { Formik, Form, ErrorMessage } from 'formik';
 import { Title, Label, TitleInput, Input, Button } from './LoginForm.styled';
-import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
-import operations from 'redux/auth/auth-operations';
-import { useNavigate } from 'react-router-dom';
+import useLoginUser from 'hooks/useLoginUser';
+import { userLoginSchema } from 'utilities/validationSchema';
 
 function LoginForm() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const onSubmitForm = ({ email, password }) => {
-    dispatch(operations.loginUser({ email, password }));
-    navigate('/');
-  };
-
-  const userLoginSchema = yup.object({
-    email: yup.string().required().email(),
-    password: yup.string().required().min(7).max(14),
-  });
+  const { onSubmitForm } = useLoginUser();
 
   return (
     <>
       <Title>Login</Title>
-
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={onSubmitForm}

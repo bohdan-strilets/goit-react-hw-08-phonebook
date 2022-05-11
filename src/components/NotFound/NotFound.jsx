@@ -9,7 +9,7 @@ function NotFound({ data, status }) {
         <Title>
           Sorry {status} {data} :(
         </Title>
-        <Text>Try reloading the page.</Text>
+        <Text>Something went wrong.</Text>
         <StyledLink to="/">Go back to the main page</StyledLink>
       </Wrapper>
     </Container>

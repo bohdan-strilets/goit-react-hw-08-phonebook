@@ -11,11 +11,9 @@ function Navigations() {
         <Link to="/">Home</Link>
       </Item>
       {isLoggedIn && (
-        <>
-          <Item>
-            <Link to="/contacts">Contacts</Link>
-          </Item>
-        </>
+        <Item>
+          <Link to="/contacts">Contacts</Link>
+        </Item>
       )}
     </List>
   );

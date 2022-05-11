@@ -1,24 +1,10 @@
 import { Formik, Form, ErrorMessage } from 'formik';
 import { Title, Label, TitleInput, Input, Button } from './RegisterForm.styled';
-import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
-import operations from 'redux/auth/auth-operations';
-import { useNavigate } from 'react-router-dom';
+import useRegistrUser from 'hooks/useRegistrUser';
+import { userRegisterSchema } from 'utilities/validationSchema';
 
 function RegisterForm() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const onSubmitForm = ({ name, email, password }) => {
-    dispatch(operations.registerUser({ name, email, password }));
-    navigate('/');
-  };
-
-  const userRegisterSchema = yup.object({
-    name: yup.string().required().min(3).max(30),
-    email: yup.string().required().email(),
-    password: yup.string().required().min(7).max(14),
-  });
+  const { onSubmitForm } = useRegistrUser();
 
   return (
     <>

@@ -1,13 +1,18 @@
 import { Button, ButtonText } from './AddButton.styled';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
+import propTypes from 'prop-types';
 
-function AddButton() {
+function AddButton({ text }) {
   return (
     <Button to="/contacts/add">
-      <ButtonText>Add new contact</ButtonText>
+      <ButtonText>{text}</ButtonText>
       <BsFillPersonPlusFill size={20} />
     </Button>
   );
 }
+
+AddButton.prototype = {
+  text: propTypes.string,
+};
 
 export default AddButton;

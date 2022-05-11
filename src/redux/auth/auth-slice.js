@@ -7,6 +7,7 @@ const initialState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
+  isRefreshing: false,
 };
 
 const authPersistConfig = {
@@ -37,9 +38,18 @@ export const authSlice = createSlice({
       state.isLoggedIn = false;
     },
 
+    [operations.getCurrentUser.pending](state) {
+      state.isRefreshing = true;
+    },
+
+    [operations.getCurrentUser.rejected](state) {
+      state.isRefreshing = false;
+    },
+
     [operations.getCurrentUser.fulfilled](state, action) {
       state.user = action.payload;
       state.isLoggedIn = true;
+      state.isRefreshing = false;
     },
   },
 });

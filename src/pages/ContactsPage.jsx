@@ -10,7 +10,7 @@ function ContactsPage() {
 
   return (
     <Container title="Contacts">
-      <AddButton />
+      <AddButton text="Add new contact" />
       <Filter />
       {data && data.length > 0 ? (
         <ContactList />
