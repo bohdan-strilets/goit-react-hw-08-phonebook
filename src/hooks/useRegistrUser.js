@@ -8,7 +8,7 @@ function useRegistrUser() {
 
   const onSubmitForm = ({ name, email, password }) => {
     dispatch(operations.registerUser({ name, email, password }));
-    navigate('/');
+    navigate('/contacts');
   };
 
   return { onSubmitForm };

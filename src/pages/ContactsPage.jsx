@@ -6,13 +6,13 @@ import { useGetContactsQuery } from 'redux/contacts/contact-api';
 import AddButton from 'components/AddButton';
 
 function ContactsPage() {
-  const { data } = useGetContactsQuery();
+  const { data: contacts } = useGetContactsQuery();
 
   return (
     <Container title="Contacts">
       <AddButton text="Add new contact" />
       <Filter />
-      {data && data.length > 0 ? (
+      {contacts && contacts.length > 0 ? (
         <ContactList />
       ) : (
         <Message message="Contact list is empty." />

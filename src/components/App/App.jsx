@@ -36,7 +36,7 @@ function App() {
             <Route
               path="/contacts/*"
               element={
-                <PrivateRoute>
+                <PrivateRoute redirectTo="/contacts">
                   <ContactsPage />
                 </PrivateRoute>
               }
